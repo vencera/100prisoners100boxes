@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>100 заключённых и 100 коробок</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="js/game.js"></script>
+  <script defer src="js/tournament.js"></script>
+  <script defer src="js/renderer.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="page-header">
+      <p class="eyebrow">Пиксельная симуляция вероятности</p>
+      <h1>100 заключённых<br><span>и 100 коробок</span></h1>
+      <p class="intro">Сравните две стратегии в классической задаче: смогут ли все заключённые найти свои номера?</p>
+    </header>
+
+    <section class="setup panel" aria-labelledby="setup-title">
+      <div>
+        <h2 id="setup-title">Настройка турнира</h2>
+        <p class="muted">Раскладка номеров по коробкам в каждом раунде совпадает для обеих стратегий. Результаты рассчитываются автоматически.</p>
+      </div>
+      <form id="tournament-form" class="setup-form">
+        <label for="round-count">Количество раундов</label>
+        <p class="muted">Можно выбрать от 1 до 1000 раундов.</p>
+        <div class="form-controls">
+          <input id="round-count" name="roundCount" type="number" min="1" max="1000" step="1" value="100" required inputmode="numeric">
+          <button id="tournament-start" class="button" type="submit">Начать турнир</button>
+          <button id="tournament-abort" class="button button-danger" type="button" hidden>Прервать игру</button>
+          <button id="tournament-new" class="button button-secondary" type="button" title="Очистит результаты и вернёт к настройке турнира" hidden><span aria-hidden="true">↺</span> Сбросить результаты</button>
+        </div>
+        <p id="setup-status" class="status" role="status" aria-live="polite">Выберите число раундов и запустите турнир.</p>
+      </form>
+    </section>
+
+    <section class="tournament panel" aria-labelledby="tournament-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Сводка</p>
+          <h2 id="tournament-title">Турнирная таблица</h2>
+        </div>
+        <p class="muted table-note">Частота побед рассчитывается по завершённым раундам.</p>
+      </div>
+
+      <p id="tournament-progress" class="tournament-progress" aria-live="polite">Турнир ещё не запущен.</p>
+
+      <div class="stats-grid" aria-label="Итоговые показатели турнира">
+        <article class="stat-card">
+          <span class="stat-label">Завершено раундов</span>
+          <strong id="completed-rounds">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Победы · случайная стратегия</span>
+          <strong id="random-wins">0</strong>
+          <span id="random-rate" class="stat-rate">Частота: —</span>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Победы · следование цепочке</span>
+          <strong id="chain-wins">0</strong>
+          <span id="chain-rate" class="stat-rate">Частота: —</span>
+        </article>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Раунд</th>
+              <th scope="col">Случайная стратегия</th>
+              <th scope="col">Следование цепочке</th>
+            </tr>
+          </thead>
+          <tbody id="round-results">
+            <tr class="empty-row">
+              <td colspan="3">Турнир ещё не запущен</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="page-footer">Автоматическая симуляция · Классическая задача о 100 заключённых</footer>
+  </main>
+</body>
+</html>
